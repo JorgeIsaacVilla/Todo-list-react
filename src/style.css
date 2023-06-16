@@ -1,0 +1,109 @@
+.office{
+    background-image: url("../src/image/fantasy-2750995.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute; 
+    width:100%;
+    height:100vh; 
+    z-Index:-1
+}
+
+.todo-list{
+    width: 500px;
+    height: 550px;
+    background: rgba(255, 255, 255, 0.48);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.1px);
+    -webkit-backdrop-filter: blur(8.1px);
+    border: 1px solid rgba(255, 255, 255, 1);
+
+    position: absolute;
+
+    top: 3vh;
+    left: 3vh;
+}
+
+/*TodoSearch(Start)*/
+input{
+    width: 90%;
+    height: 25px;
+    border-radius: 16px;
+    border-color: #804000;
+    margin-left: 2.3vh;
+}
+/*TodoSearch(end)*/
+
+/*TodoList(start)*/
+.list-activity{
+    margin: auto;
+    margin-top: 15px;
+    list-style: none;
+    width: 90%;
+    height: 310px;
+    overflow: auto;
+    border: solid 1px;
+    border-color: #f2f1f3;
+    border-radius: 16px;
+    box-shadow: 0 0 10px  white, 0 0 10px  white, 0 0 10px  white;
+    color: #804000;
+}
+
+.list-activity::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.list-activity::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.list-activity::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid  #f2f1f3;
+}
+.list-activity ul{
+list-style: none;
+}
+.list-activity ul li{
+    margin-top: 5px;
+    width: 104%;
+    background-color: #f2f1f3c9;
+    padding: 5px;
+    margin-left: -30px;
+    border-radius: 10px;
+}
+.list-activity ul li span{
+cursor: pointer;
+}
+/*TodoList(start)*/
+
+/*CreateTodoButton (Start)*/
+.canva-button{
+    display: flex;
+    justify-content: center;
+}
+button{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    cursor: pointer;
+    border-color: #804000;
+    margin-top: 16px;
+}
+
+/*CreateTodoButton (End)*/
+@media (max-width:600px){
+    .todo-list{
+        width:99.3%;
+        height: 550px;
+        background: rgba(255, 255, 255, 0);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(0);
+        border: 1px solid rgba(255, 255, 255, 1);
+    
+        top: 0.1vh;
+        left: 0;
+    }
+}
