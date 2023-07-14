@@ -35,7 +35,7 @@ function App() {
 
   {/*para programar la cantidad de tareas real en la lista */}
 
-  const totalTodos =  defaultTodos.length;
+  const totalTodos =  todos.length;
 
   const searchedTodo = todos.filter(
     (todo) => {
@@ -53,6 +53,25 @@ function App() {
   console.log("Los usuarios buscan Todos de " + searchValue)
 
   {/* esto: => es un arrow fuctions; Las funciones de flecha, o arrow functions son una nueva forma de definir funciones y hay distintas variantes en la sintaxis:Función de un solo parámetro.Al crear una arrow function de un solo parámetro no es necesario escribír los paréntesis, tampoco es necesario escribír las llaves, esto se puede cuando la función es de una sola línea y devuelve un valor. */}
+
+  const completeTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos[todoIndex].completed = true;
+    setTodos(newTodos);
+  }
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  };
+
 
   return (
     <React.Fragment>
@@ -89,6 +108,8 @@ function App() {
           key={todo.text} 
           text={todo.text}  
           completed={todo.completed}
+          onComplete={ () => completeTodo(todo.text)}
+          onDelete ={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
