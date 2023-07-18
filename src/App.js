@@ -9,20 +9,67 @@ import { Canvas } from 'react-three-fiber';
 import { Office } from './Components/office3d/Office';
 import { OrbitControls } from '@react-three/drei';
 
-import "./style.css"
+import { TodosLoading } from "./TodosLoading";
+import { TodosError } from "./TodosError";
+import { EmptyTodos } from "./EmptyTodos";
 
+import "./style.css";
+
+/*localStorage.removeItem("TODOS_V1")
 const defaultTodos =[
   { text:"Puedes filtrar con el editor de texto", completed:false },
   { text:"Escribe en el editor de texto y pulsa (➕) para agregar tareas", completed:false },
   { text:"con (✔) podras tachar la tarea que completaste", completed:true },
   { text:"con (❌) podras eliminar la tarea que completaste", completed:false },
   { text:"El entorno es 3D, puedes manipularlo para relajarte y divertirte mientras completas tus tareas 😊❤ disfrutalo", completed:false },
-];
+]; 
+localStorage.setItem("TODOS_V1",JSON.stringify(defaultTodos));*/
+
+function useLocaStorage (itemName, initialValue) {
+const [item, setItem] = React.useState(initialValue);
+const [loading,setLoading] = React.useState(true);
+const [error,setError] = React.useState(false);
+
+React.useEffect(() => {
+setTimeout(() => {
+
+  try {
+    const localStorageItem = localStorage.getItem(itemName);
+  
+  let parsedItem;
+    
+    if (!localStorageItem){
+      localStorage.setItem(itemName, JSON.stringify([]));
+      parsedItem=[];
+     } else {
+      parsedItem= JSON.parse(localStorageItem);
+      setItem(parsedItem);
+     }
+     setLoading(false);
+  }catch(error){
+    setLoading(false);
+    setError(true);
+  }
+
+}, 2000);
+}, []);
+
+{/*React.useEffect es para agregar un efecto de carga a las librerias, API´s o cualquier elemento que cargue datos */}
+
+ const saveItem = (newItem) => {
+  localStorage.setItem(itemName,JSON.stringify(newItem ));
+  setItem(newItem);
+};
+
+return {item, saveItem, error, loading};
+
+}
 
 function App() {
  {/*para programar la cantidad de tareas con TRUE real en la lista */}
+ //const [todos, setTodos] = React.useState(defaultTodos);
 
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const {item: todos, saveItem: saveTodos,loading,error} = useLocaStorage ("TODOS_V1",[]);
   const [searchValue, setSearchValue] = React.useState(""); {/* en esta costante "searchValue" es el estado programado, (nosotros elegimos el nombre), pero "setSearchValue" es el que va a sensar el estado de "searchValue" tambien puedo inventarle el nombre, pero por convección el sistema estaria de la siguiente manera: 
   
   const [ejemplo, SetEjemplo] = React.useState(); 
@@ -57,19 +104,19 @@ function App() {
   const completeTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
-      (todo) => todo.text == text
+      (todo) => todo.text === text
     );
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   const deleteTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
-      (todo) => todo.text == text
+      (todo) => todo.text === text
     );
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
 
@@ -103,6 +150,13 @@ function App() {
       />
 
       <TodoList>
+        {/*loading && <p>Cargando Aplicación...</p> */}
+        {loading && <TodosLoading />}
+        {/*error && <p>!#ERROR FATAL</p>*/}
+        {error && <TodosError/>}
+        {/*(!loading && searchedTodo.length === 0) && <p>No se Encuentran Tareas 😃✨</p>*/}
+        {(!loading && searchedTodo.length === 0) && <EmptyTodos/>}
+
         {searchedTodo.map(todo =>(
           <TodoItem 
           key={todo.text} 
@@ -121,3 +175,21 @@ function App() {
 }
 
 export default App;
+/*Local Storage: es una herramaienta que nos ayuda a hacer persistencia de datos en un navegador, eso significa que uando los usuarios entren al navegador, guarden informacion en el local storage y despues se vallan y cierran la App, ahí sigan teniendo esa información
+
+En el navegador en la opcion de "inspeccionar" se escrive <locaStorage>
+*/
+
+/*Custom Hooks es una herramienta de React que nos permite extraer una parte de la logica de nuestros componentes para que quede mucho más limpio y se pueda reutilizar mucho más 
+
+una conveccion que nos pide utilizar React para los "CustomHooks" es que las funciones en la que utilizaremos esta herramienta, siempre lo comenzemos por use.
+
+ejemplo:
+function useLocaStorage(){}
+*/
+/*"React Context" es una herramienta que nos permite crear estados globales para evitar el problema de prodg grining en nuestras aplicaciones.
+
+"useContext" es una herramienta que se utiliza para usar los props es similar a "consumer" la sintaxis es "React.useContext()"
+*/
+
+/*React Portals es una herramienta de React para abrir portales y renderizar información en nodos HTML */
