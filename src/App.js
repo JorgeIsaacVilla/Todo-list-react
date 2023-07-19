@@ -25,7 +25,7 @@ const defaultTodos =[
 ]; 
 localStorage.setItem("TODOS_V1",JSON.stringify(defaultTodos));*/
 
-function useLocaStorage (itemName, initialValue) {
+function useLocalStorage (itemName, initialValue) {
 const [item, setItem] = React.useState(initialValue);
 const [loading,setLoading] = React.useState(true);
 const [error,setError] = React.useState(false);
@@ -69,17 +69,30 @@ function App() {
  {/*para programar la cantidad de tareas con TRUE real en la lista */}
  //const [todos, setTodos] = React.useState(defaultTodos);
 
-  const {item: todos, saveItem: saveTodos,loading,error} = useLocaStorage ("TODOS_V1",[]);
+  const {item: todos, saveItem: saveTodos,loading,error} = useLocalStorage ("TODOS_V1",[]);
   const [searchValue, setSearchValue] = React.useState(""); {/* en esta costante "searchValue" es el estado programado, (nosotros elegimos el nombre), pero "setSearchValue" es el que va a sensar el estado de "searchValue" tambien puedo inventarle el nombre, pero por convección el sistema estaria de la siguiente manera: 
   
   const [ejemplo, SetEjemplo] = React.useState(); 
 
   React.useState() = esto es necesario porque cuando se inicializa el programa, la constante debe tener un valor inicial, que para este cas sera un string vacio
-
 */}
 
-  const completedTodos = todos.filter(todo => !!todo.completed).length; {/* recuerda que la propiedad length nos permite sacar la cantidad de caracteres en una cadena de texto. pero para este caso lo usaremos para calcular la cantidad de "todos" que pasaron este filtro */}
+  const handleCreateTodo =(searchValue)=> {
+    console.log("valor de searchValue: " + searchValue + " desde App.js")
 
+    if(searchValue.trim() !==""){
+      const newTodo = {
+        text: searchValue,
+        completed:false
+      };
+      saveTodos([...todos, newTodo]);
+      console.log("nueva tarea creada: " + newTodo);
+      setSearchValue("");
+    }
+
+  }
+  const completedTodos = todos.filter(todo => !!todo.completed).length; 
+  {/* recuerda que la propiedad length nos permite sacar la cantidad de caracteres en una cadena de texto. pero para este caso lo usaremos para calcular la cantidad de "todos" que pasaron este filtro */}
   {/*para programar la cantidad de tareas real en la lista */}
 
   const totalTodos =  todos.length;
@@ -93,7 +106,7 @@ function App() {
       return  todoText.includes(searchText);
       {/*si ponemos solo "return  todo.text.includes(searchValue);" lo que pasara es que se filtraran solo los textos que sean 100% similares va a omitir si es mayuscula o minuscula e imprimira ejemplo "LA" los textos que tenga LA, y "la" los textos que tenga la.
     
-    para arreglar esto se puede poner: "return  todo.text.toLowerCase()includes(searchValue).toLocaleLowerCase()); y lo que hara el metodo .toLowerCase() es transformar todo a minuscula */}
+      para arreglar esto se puede poner: "return  todo.text.toLowerCase()includes(searchValue).toLocaleLowerCase()); y lo que hara el metodo .toLowerCase() es transformar todo a minuscula */}
     }
   );
 
@@ -163,12 +176,14 @@ function App() {
           text={todo.text}  
           completed={todo.completed}
           onComplete={ () => completeTodo(todo.text)}
-          onDelete ={() => deleteTodo(todo.text)}
+          onDelete ={() => deleteTodo(todo.text)} //pasar SearhValue como props a TodoITem.js
           />
         ))}
       </TodoList>
 
-      <CreateTodoButton />
+      <CreateTodoButton 
+      searchValue= {searchValue} 
+      onClick={handleCreateTodo}/>
       </div>
     </React.Fragment>
   );
@@ -185,7 +200,7 @@ En el navegador en la opcion de "inspeccionar" se escrive <locaStorage>
 una conveccion que nos pide utilizar React para los "CustomHooks" es que las funciones en la que utilizaremos esta herramienta, siempre lo comenzemos por use.
 
 ejemplo:
-function useLocaStorage(){}
+function useLocalStorage(){}
 */
 /*"React Context" es una herramienta que nos permite crear estados globales para evitar el problema de prodg grining en nuestras aplicaciones.
 
@@ -193,3 +208,5 @@ function useLocaStorage(){}
 */
 
 /*React Portals es una herramienta de React para abrir portales y renderizar información en nodos HTML */
+
+/*los React Portals son herramientas de React para teletransportar contenidos de un componente a otro componente. podria utilizar esto para navegacion entre distintas paginas cambiando el estado de false a true para mostrar un contenido u otro segun el que necesite. */
