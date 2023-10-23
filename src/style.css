@@ -1,18 +1,17 @@
 .office{
-    background-image: url("../src/image/fantasy-2750995.jpg");
+    background:#797979;
     background-repeat: no-repeat;
     background-size: cover;
     position:absolute; 
     width:100%;
     height:100vh; 
-    z-Index:-1
+    z-Index:-1;
 }
 
 .todo-list{
     width: 500px;
     height: 550px;
     background: rgba(255, 255, 255, 0.48);
-    border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.1px);
     -webkit-backdrop-filter: blur(8.1px);
@@ -28,7 +27,6 @@
 input{
     width: 90%;
     height: 25px;
-    border-radius: 16px;
     border-color: #804000;
     margin-left: 2.3vh;
 }
@@ -44,7 +42,6 @@ input{
     overflow: auto;
     border: solid 1px;
     border-color: #f2f1f3;
-    border-radius: 16px;
     box-shadow: 0 0 10px  white, 0 0 10px  white, 0 0 10px  white;
     color: #804000;
 }
@@ -59,7 +56,6 @@ input{
 
 .list-activity::-webkit-scrollbar-thumb {
     background-color: #797979;
-    border-radius: 20px;
     border: 2px solid  #f2f1f3;
 }
 .list-activity ul{
@@ -71,8 +67,7 @@ list-style: none;
     background-color: #f2f1f3c9;
     padding: 5px;
     margin-left: -30px;
-    border-radius: 10px;
-}
+    }
 .list-activity ul li span{
 cursor: pointer;
 }
@@ -86,8 +81,7 @@ cursor: pointer;
 button{
     height: 50px;
     width: 50px;
-    border-radius: 100%;
-    cursor: pointer;
+        cursor: pointer;
     border-color: #804000;
     margin-top: 16px;
 }
@@ -98,7 +92,6 @@ button{
         width:99.3%;
         height: 550px;
         background: rgba(255, 255, 255, 0);
-        border-radius: 16px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(0);
         border: 1px solid rgba(255, 255, 255, 1);

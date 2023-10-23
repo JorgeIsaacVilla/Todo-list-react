@@ -137,9 +137,8 @@ function App() {
     <React.Fragment>
 
       <div className='office'>
-      <Canvas camera={{zoom:1,  position:[0,0,1.3]}}>
+      <Canvas camera={{zoom:1,  position:[5,5,3]}}>
           <ambientLight intensity={0.5} />
-          <pointLight position={[35, 35, 0]} intensity={ 0.4 }/>
           <pointLight position={[-35, 35, 0]} intensity={ 0.4 }/>
           <Suspense fallback={null}>
           <Office />
@@ -147,7 +146,7 @@ function App() {
           <OrbitControls
             autoRotate={true}
             autoRotateSpeed={0.2}  
-            enableZoom={false}
+            enableZoom={true}
           />
       </Canvas>
       </div>
