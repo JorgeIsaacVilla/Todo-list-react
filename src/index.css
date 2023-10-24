@@ -1,6 +1,6 @@
 @font-face{
   font-family: 'arcade';
-  src: url('../build/font/ARCADE_N.TTF');
+  src: url('../src/assets/font/ARCADE_N.TTF');
 }
 body {
   margin: 0;
